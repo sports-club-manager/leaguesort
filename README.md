@@ -13,8 +13,36 @@ can be passed to a templating library or front-end code for display.
 
 ## Usage
 
-    var leaguesort = require('leaguesort');
+    var leaguesort = require('leaguesort'),
+        results = [], 
+        table = [];
 
+    results.push({
+        homeTeam:'Fuz', 
+        awayTeam:'Foo', 
+        homeGoals:2, 
+        awayGoals:1
+    });
+
+    results.push({
+        homeTeam:'Bar', 
+        awayTeam:'Baz', 
+        homeGoals:3, 
+        awayGoals:2
+    });
+
+    leaguesort.calculateTable(results, table);
+    console.log(table);
+
+    // add another result.. cumulative on the same table
+    var newResult = {
+        homeTeam:'Foo', 
+        awayTeam:'Bar', 
+        homeGoals:2, 
+        awayGoals:2
+    };
+
+    leaguesort.calculateTable([newResult], table);
 
 
 ## ToDo

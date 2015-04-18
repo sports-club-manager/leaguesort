@@ -1,14 +1,29 @@
 
+var _defaults = {
+    winPoints: 3,
+    drawPoints: 1,
+    lossPoints: 0
+};
+
+var opts = {};
+
+var options = function(_opts) {
+    opts = _opts;
+};
+
 var calculateTable = function(results, table, comparator) {
 
     var applyResult = function(entry, myGoals, yourGoals) {
+        var winPoints = (opts.winPoints ? opts.winPoints : _defaults.winPoints);
+        var drawPoints = (opts.drawPoints ? opts.drawPoints : _defaults.drawPoints);
+        var lossPoints = (opts.lossPoints ? opts.lossPoints : _defaults.lossPoints);
         entry.played++;
         entry.won += (myGoals > yourGoals ? 1 : 0);
         entry.drawn += (myGoals === yourGoals ? 1 : 0);
         entry.lost += (myGoals < yourGoals ? 1 : 0);
         entry.goalsFor += myGoals;
         entry.goalsAgainst += yourGoals;
-        entry.points += (myGoals > yourGoals ? 3 : (myGoals === yourGoals ? 1 : 0));
+        entry.points += (myGoals > yourGoals ? winPoints : (myGoals === yourGoals ? drawPoints : lossPoints));
         return entry;
     };
 
@@ -62,4 +77,4 @@ var calculateTable = function(results, table, comparator) {
 };
 
 exports.calculateTable = calculateTable;
-
+exports.options = options;
