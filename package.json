@@ -1,0 +1,25 @@
+{
+  "name": "leaguesort",
+  "version": "1.0.0",
+  "description": "NPM module to generate sorted league tables based on sets of results between teams",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davison/leaguesort.git"
+  },
+  "keywords": [
+    "sports",
+    "league",
+    "results",
+    "sort"
+  ],
+  "author": "Darren Davison",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davison/leaguesort/issues"
+  },
+  "homepage": "https://github.com/davison/leaguesort"
+}
