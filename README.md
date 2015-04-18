@@ -44,6 +44,11 @@ can be passed to a templating library or front-end code for display.
 
     leaguesort.calculateTable([newResult], table);
 
+    // change to 2 points per win (default == 3)
+    table = [];
+    leaguesort.options({winPoints: 2});
+    leaguesort.calculateTable(results, table);
+
 
 ## ToDo
 
