@@ -48,6 +48,13 @@ can be passed to a templating library or front-end code for display.
     table = [];
     leaguesort.options({winPoints: 2});
     leaguesort.calculateTable(results, table);
+    
+    // use a non-default comparator to sort the table
+    table = [];
+    leaguesort.calculateTable(results, table, function(a, b) {
+        // alphabetical only
+        return (a.name > b.name);
+    });
 
 
 ## ToDo
