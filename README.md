@@ -7,6 +7,14 @@ Takes an input that is a list of results, returning a sorted array
 representing the league table based on those results.  The sorted array
 can be passed to a templating library or front-end code for display.
 
+The default comparator for a league table is based on the following 
+hierarchy; 
+
+Points > Goal Difference > Goals Scrored > Wins > Head2Head
+
+.. but this can be changed by supplying a custom comparator.
+
+
 ## Installation
 
     npm install leaguesort --save
@@ -61,4 +69,7 @@ can be passed to a templating library or front-end code for display.
 
 - Enable property mapping for the stats so that callers are not forced
   to use the same input convention
+
+- Create runtime comparators based on desired ordering (i.e. allow a
+  runtime configuration that selects "points > goal-diff > head2head"
 

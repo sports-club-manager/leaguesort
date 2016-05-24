@@ -13,18 +13,46 @@ var options = function(_opts) {
 
 var calculateTable = function(results, table, comparator) {
 
-    var applyResult = function(entry, myGoals, yourGoals) {
-        var winPoints = (opts.winPoints ? opts.winPoints : _defaults.winPoints);
-        var drawPoints = (opts.drawPoints ? opts.drawPoints : _defaults.drawPoints);
-        var lossPoints = (opts.lossPoints ? opts.lossPoints : _defaults.lossPoints);
-        entry.played++;
-        entry.won += (myGoals > yourGoals ? 1 : 0);
-        entry.drawn += (myGoals === yourGoals ? 1 : 0);
-        entry.lost += (myGoals < yourGoals ? 1 : 0);
-        entry.goalsFor += myGoals;
-        entry.goalsAgainst += yourGoals;
-        entry.points += (myGoals > yourGoals ? winPoints : (myGoals === yourGoals ? drawPoints : lossPoints));
-        return entry;
+    var winPoints = (opts.winPoints ? opts.winPoints : _defaults.winPoints);
+    var drawPoints = (opts.drawPoints ? opts.drawPoints : _defaults.drawPoints);
+    var lossPoints = (opts.lossPoints ? opts.lossPoints : _defaults.lossPoints);
+
+    var applyResult = function(home, away, homeGoals, awayGoals) {
+        home.played++;
+        away.played++;
+        var res = 0;
+        if (homeGoals > awayGoals) {
+            home.won++;
+            away.lost++;
+            home.points += winPoints;
+            away.points += lossPoints;
+            res = 1;
+        }
+        else if (homeGoals === awayGoals) {
+            home.drawn++;
+            away.drawn++;
+            home.points += drawPoints;
+            away.points += drawPoints;
+        }
+        else {
+            home.lost++;
+            away.won++;
+            away.points += winPoints;
+            home.points += lossPoints;
+            res = -1;
+        }
+        home.goalsFor += homeGoals;
+        away.goalsFor += awayGoals;
+        home.goalsAgainst += awayGoals;
+        away.goalsAgainst += homeGoals;
+
+        // record head to head
+        home.versus.push({
+            name: away.name, res: res
+        });
+        away.versus.push({
+            name: home.name, res: -res
+        });
     };
 
     var defaultComparator = function(a, b) {
@@ -46,8 +74,19 @@ var calculateTable = function(results, table, comparator) {
         if (a.won > b.won) return -1;
         if (a.won < b.won) return 1;
 
+        // head to head
+        if (b.versus.length > 0) {
+            var c = 0;
+            for (var g = 0; g < a.versus.length; g++) {
+                c += (b.versus[g].name === a.name ? b.versus[g].res : 0);
+            }
+            if (c != 0) {
+                return c;
+            }
+        }
+
         // name
-        return (a.name < b.name);
+        return (a.name > b.name);
 
     };
 
@@ -56,7 +95,7 @@ var calculateTable = function(results, table, comparator) {
             if (table[i].name === name) return table[i];
         }
 
-        var entry = {played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, points: 0};
+        var entry = {played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, points: 0, versus:[]};
         entry.name = name;
         table.push(entry);
         return entry;
@@ -69,8 +108,7 @@ var calculateTable = function(results, table, comparator) {
             var ag = newResult.awayGoals;
             var ht = findEntryInTable(newResult.homeTeam, table);
             var at = findEntryInTable(newResult.awayTeam, table);
-            applyResult(ht, hg, ag);
-            applyResult(at, ag, hg);
+            applyResult(ht, at, hg, ag);
         }
     }
     table.sort(comparator ? comparator : defaultComparator);

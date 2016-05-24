@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/davison/leaguesort/issues"
   },
-  "homepage": "https://github.com/davison/leaguesort"
+  "homepage": "https://github.com/davison/leaguesort",
+  "devDependencies": {
+    "mocha": "^2.5.1"
+  }
 }
