@@ -1,6 +1,6 @@
 {
   "name": "leaguesort",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "NPM module to generate sorted league tables based on sets of results between teams",
   "main": "index.js",
   "scripts": {
