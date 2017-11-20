@@ -22,7 +22,8 @@
     "url": "https://github.com/davison/leaguesort/issues"
   },
   "homepage": "https://github.com/davison/leaguesort",
-  "devDependencies": {
-    "mocha": "^2.5.1"
+  "devDependencies": {},
+  "dependencies": {
+    "mocha": "^4.0.1"
   }
 }
