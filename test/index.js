@@ -61,6 +61,17 @@ describe('CalculateTable', function() {
             assertOrder(['A', 'D', 'C', 'B']);
         });
 
+        it('should sort on head to head comparison if the teams have yet to play each other', function() {
+            results.push({homeTeam:'A', awayTeam:'B', homeGoals:0, awayGoals:1});
+            results.push({homeTeam:'C', awayTeam:'D', homeGoals:1, awayGoals:1});
+            results.push({homeTeam:'E', awayTeam:'F', homeGoals:3, awayGoals:0});
+            results.push({homeTeam:'G', awayTeam:'C', homeGoals:0, awayGoals:0});
+            results.push({homeTeam:'B', awayTeam:'E', homeGoals:0, awayGoals:1});
+            results.push({homeTeam:'D', awayTeam:'A', homeGoals:2, awayGoals:0});
+            leaguesort.calculateTable(results, table);
+            assertOrder(['E', 'D', 'B', 'C', 'G', 'A', 'F']);
+        });
+
     });
 
     describe('with custom comparators', function() {
