@@ -4,7 +4,8 @@
   "description": "NPM module to generate sorted league tables based on sets of results between teams",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test"
+    "test": "mocha ./test",
+    "test:watch": "mocha ./test --watch"
   },
   "repository": {
     "type": "git",
@@ -22,8 +23,8 @@
     "url": "https://github.com/davison/leaguesort/issues"
   },
   "homepage": "https://github.com/davison/leaguesort",
-  "devDependencies": {},
-  "dependencies": {
-    "mocha": "^4.0.1"
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }

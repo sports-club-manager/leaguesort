@@ -119,4 +119,25 @@ describe('CalculateTable', function() {
         });
 
     });
+
+    // 1.1.0+
+    describe('when using a fluid api', function() {
+
+        it('should return the table to the caller', function() {
+            results.push({homeTeam:'Foo', awayTeam:'Bar', homeGoals:1, awayGoals:0});
+            var t = leaguesort.calculateTable(results, table);
+            assert.equal(t, table);
+        });
+
+        it('should work without a starting table', function() {
+            results = [{homeTeam:'Foo', awayTeam:'Bar', homeGoals:1, awayGoals:0}];
+            var t = leaguesort.calculateTable(results);
+            assert.equal(t.length, 2);
+            assert.equal(t[0].points, 2);
+            assert.equal(t[0].goalsFor, 1);
+            assert.equal(t[0].goalsAgainst, 0);
+        });
+        
+    });
+
 });
