@@ -122,6 +122,19 @@ describe('CalculateTable', function() {
 
     // 1.1.0+
     describe('when using a fluid api', function() {
+        
+        beforeEach(function(done) {
+            table = [];
+            results = [];
+            done();
+        });
+
+        it('should not fail with an undefined results array', function() {
+            var r;
+            assert.doesNotThrow(function() {
+                leaguesort.calculateTable(r, table);
+            });
+        });
 
         it('should return the table to the caller', function() {
             results.push({homeTeam:'Foo', awayTeam:'Bar', homeGoals:1, awayGoals:0});

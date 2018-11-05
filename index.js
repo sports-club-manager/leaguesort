@@ -14,6 +14,7 @@ var options = function(_opts) {
 var calculateTable = function(results, table, comparator) {
 
     var table = table ? table : []
+    var results = results ? results : []
     var winPoints = (opts.winPoints ? opts.winPoints : _defaults.winPoints);
     var drawPoints = (opts.drawPoints ? opts.drawPoints : _defaults.drawPoints);
     var lossPoints = (opts.lossPoints ? opts.lossPoints : _defaults.lossPoints);
