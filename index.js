@@ -90,7 +90,7 @@ var calculateTable = function(results, table, comparator) {
         }
 
         // name
-        return (a.name > b.name);
+        return (a.name > b.name ? 1 : -1);
 
     };
 

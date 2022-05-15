@@ -72,6 +72,17 @@ describe('CalculateTable', function() {
             assertOrder(['E', 'D', 'B', 'C', 'G', 'A', 'F']);
         });
 
+        it('should sort on alphanumeric as last resort', function() {
+            results.push({homeTeam:'B', awayTeam:'D', homeGoals:1, awayGoals:1});
+            results.push({homeTeam:'A', awayTeam:'C', homeGoals:1, awayGoals:1});
+            results.push({homeTeam:'A', awayTeam:'B', homeGoals:1, awayGoals:1});
+            results.push({homeTeam:'C', awayTeam:'D', homeGoals:1, awayGoals:1});
+            results.push({homeTeam:'B', awayTeam:'C', homeGoals:1, awayGoals:1});
+            results.push({homeTeam:'A', awayTeam:'D', homeGoals:1, awayGoals:1});
+            leaguesort.calculateTable(results, table);
+            assertOrder(['A', 'B', 'C', 'D']);
+        });
+
     });
 
     describe('with custom comparators', function() {
@@ -88,14 +99,14 @@ describe('CalculateTable', function() {
 
         it('should sort alphabetically only', function() {
             leaguesort.calculateTable(results, table, function(a, b) {
-                return (a.name > b.name);
+                return (a.name > b.name ? 1 : -1);
             });
             assertOrder(['Bar', 'Baz', 'Foo', 'Fuz']);
         });
 
         it('should reverse sort alphabetically only', function() {
             leaguesort.calculateTable(results, table, function(a, b) {
-                return (a.name < b.name);
+                return (a.name < b.name ? 1 : -1);
             });
             assertOrder(['Fuz', 'Foo', 'Baz', 'Bar']);
         });
