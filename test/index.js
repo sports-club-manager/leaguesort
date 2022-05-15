@@ -83,6 +83,16 @@ describe('CalculateTable', function() {
             assertOrder(['A', 'B', 'C', 'D']);
         });
 
+        it('should include games yet to be played', function() {
+            results.push({homeTeam:'Foo', awayTeam:'Bar', homeGoals:1, awayGoals:0});
+            results.push({homeTeam:'Fuz', awayTeam:'Baz'});
+            results.push({homeTeam:'Bar', awayTeam:'Baz'});
+            results.push({homeTeam:'Foo', awayTeam:'Fuz'});
+            leaguesort.calculateTable(results, table);
+            assert.equal(table.length, 4);    
+            assertOrder(['Foo', 'Baz', 'Fuz', 'Bar']);
+        });   
+
     });
 
     describe('with custom comparators', function() {

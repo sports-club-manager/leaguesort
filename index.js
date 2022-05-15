@@ -94,7 +94,7 @@ var calculateTable = function(results, table, comparator) {
 
     };
 
-    var findEntryInTable = function(name, table) {
+    var findEntryInTable = function(name) {
         for (var i = 0; i < table.length; i++) {
             if (table[i].name === name) return table[i];
         }
@@ -107,11 +107,11 @@ var calculateTable = function(results, table, comparator) {
 
     for (var i = 0; i < results.length; i++) {
         var newResult = results[i];
+        var ht = findEntryInTable(newResult.homeTeam);
+        var at = findEntryInTable(newResult.awayTeam);
         if ('homeGoals' in newResult) {
             var hg = newResult.homeGoals;
             var ag = newResult.awayGoals;
-            var ht = findEntryInTable(newResult.homeTeam, table);
-            var at = findEntryInTable(newResult.awayTeam, table);
             applyResult(ht, at, hg, ag);
         }
     }
